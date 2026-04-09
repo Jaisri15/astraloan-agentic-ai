@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Healthcare Monitor App</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>AI Loan Underwriting</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="login-box">
-        <h2>Login</h2>
-        <input type="text" placeholder="Parameter ID">
-        <input type="text" placeholder="Wi-Fi / Bluetooth Connection">
-        <input type="text" placeholder="Location">
-        <button onclick="goToDashboard()">Login</button>
-    </div>
+    <h1>AI Loan Underwriting System</h1>
 
-    <script src="script.js"></script>
+    <form id="loanForm">
+        <label>Credit Score:</label>
+        <input type="number" id="creditScore" required>
+
+        <label>Monthly Income:</label>
+        <input type="number" id="income" required>
+
+        <label>Monthly Debt:</label>
+        <input type="number" id="debt" required>
+
+        <label>Employment Type:</label>
+        <select id="employment">
+            <option>Salaried</option>
+            <option>Self-Employed</option>
+            <option>Freelancer</option>
+        </select>
+
+        <button type="submit">Evaluate</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script src="app.js"></script>
 </body>
 </html>
