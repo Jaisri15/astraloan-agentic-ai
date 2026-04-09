@@ -1,26 +1,24 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const calculateRisk = require("./riskEngine");
+const generateExplanation = require("./explainability");
 
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-// SAMPLE API
-app.get("/api/parameters", (req, res) => {
-    res.json({
-        sugar: 120,
-        bp: "120/80",
-        so2: "97%",
-        ecg: "Normal",
-        oxygen: "98%"
-    });
+app.post("/evaluate", (req, res) => {
+    const { creditScore, income, debt, employment } = req.body;
+
+    const riskScore = calculateRisk(creditScore, income, debt, employment);
+
+    const decision = riskScore < 40 ? "Approved" :
+                     riskScore < 70 ? "Review Manually" :
+                     "Rejected";
+
+    const explanation = generateExplanation(creditScore, income, debt);
+
+    res.json({ decision, riskScore, explanation });
 });
 
-// AI suggestion API
-app.get("/api/ai", (req, res) => {
-    res.json({ suggestion: "All parameters normal" });
-});
-
-app.listen(3000, () => {
-    console.log("Backend running on port 3000");
-});
+app.listen(5000, () => console.log("Server running on port 5000"));
